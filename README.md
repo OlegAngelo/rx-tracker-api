@@ -5,14 +5,12 @@ This is the documentation for the RX Tracker application (*which is also known a
 **Note:** Project is ongoing and is not open-source, thus, project is currently in private.
 
 ## Table of Contents
-- [Features](#features)
-- [Technology](#technology)
-- [Endpoints](#endpoints)
+- [Features](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#features)
+- [Technology](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#technology)
+- [Endpoints](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#endpoints)
   - [Get API Token](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#generate-api-token)
   - [Add Prescription](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
   - [Get Prescriptions](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
-
-<a id="features"/>
 
 ## Features
 - Admin page
@@ -22,8 +20,6 @@ This is the documentation for the RX Tracker application (*which is also known a
 - Get Prescriptions with medical details
 - Add Prescriptions with medical details
 
-<a id="technology"/>
-
 ## Technology
 This API uses a number of open source projects to work properly:
 
@@ -31,9 +27,8 @@ This API uses a number of open source projects to work properly:
 - [Django Rest Framework](https://www.django-rest-framework.org/) for authentication & authorization
 - [SQLite](https://www.sqlitetutorial.net/) for the database
 
-<a id="endpoints"/>
-
 ## Endpoints
+
 ### Generate API token
 
 ---
