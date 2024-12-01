@@ -8,6 +8,9 @@ This is the documentation for the RX Tracker application (*which is also known a
 - [Features](#features)
 - [Technology](#technology)
 - [Endpoints](#endpoints)
+  - [Get API Token](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#generate-api-token)
+  - [Add Prescription](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
+  - [Get Prescriptions](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
 
 <a id="features"/>
 
@@ -33,6 +36,7 @@ This API uses a number of open source projects to work properly:
 ## Endpoints
 ### Generate API token
 
+---
 ```
 POST /api/token-auth
 ```
@@ -58,7 +62,10 @@ curl -X POST http://127.0.0.1:8000/api/token-auth/ -H "Content-Type: application
 
 <br />
 
+
 ### Add Prescriptions with Medical Details
+
+---
 
 ```
 POST /api/prescriptions/add
@@ -127,6 +134,7 @@ Response is grouped by `prescription`.
 
 ### Get Prescriptions with Medical Details
 
+---
 ```
 GET /api/prescriptions
 ```
