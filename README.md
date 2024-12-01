@@ -5,9 +5,6 @@ This is the documentation for the RX Tracker application (*which is also known a
 **Note:** Project is ongoing and is not open-source, thus, project is currently in private.
 
 ## Table of Contents
-
----
-
 - [Features](#features)
 - [Technology](#technology)
 - [Endpoints](#endpoints)
@@ -15,8 +12,6 @@ This is the documentation for the RX Tracker application (*which is also known a
 <a id="features"/>
 
 ## Features
-
----
 - Admin page
 - Create admin
 - Create user
@@ -27,8 +22,6 @@ This is the documentation for the RX Tracker application (*which is also known a
 <a id="technology"/>
 
 ## Technology
-
----
 This API uses a number of open source projects to work properly:
 
 - [Django](https://www.djangoproject.com/) for the backend framework
@@ -38,10 +31,6 @@ This API uses a number of open source projects to work properly:
 <a id="endpoints"/>
 
 ## Endpoints
-
----
-
-
 ### Generate API token
 
 ```
