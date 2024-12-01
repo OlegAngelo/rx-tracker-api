@@ -38,7 +38,8 @@ def get_prescriptions(request):
                 serialized_medication_details = []
                 for detail in medication_details:
                     serialized_detail = {
-                        # "id": detail.id,
+                        "medication_name": detail.medication_name,
+                        "frequency": detail.frequency,
                         "dosage_measurement": detail.dosage_measurement,
                         "prescription": detail.prescription.id,
                         "instructions": detail.instructions,
