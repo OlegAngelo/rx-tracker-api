@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 
-# from collections import defaultdict
 from datetime import date, timedelta
 from django.db import transaction, IntegrityError
 
@@ -70,23 +69,22 @@ def add_prescription(request):
             if not medication_details_data:
                 return Response({"error": "No medication details provided."}, status=status.HTTP_400_BAD_REQUEST)
 
-            # Create the serializer instance and validate the prescription data
+            # create the serializer instance and validate the prescription data
             prescription_serializer = PrescriptionSerializer(data=request_data)
             if not prescription_serializer.is_valid():
                 return Response(prescription_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            # Save the main prescription instance
             prescription_serializer.save()
 
             return Response(prescription_serializer.data, status=status.HTTP_201_CREATED)
     except IntegrityError as e:
-        # Handle specific database integrity errors
-        transaction.rollback()  # Explicit rollback for clarity, though transaction.atomic() does this automatically
+        # handle specific database integrity errors
+        transaction.rollback()
         print(f"Database integrity error: {e}")
         return Response({"error": "Database integrity error occurred."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     except Exception as e:
-        # Handle any other unexpected errors
-        transaction.rollback()  # Explicit rollback for clarity, though transaction.atomic() does this automatically
+        # handle any other unexpected errors
+        transaction.rollback()
         print(f"An error occurred: {e}")
         return Response({"error": "An unexpected error occurred."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -146,40 +144,3 @@ def complete_prescription(request, prescription_id):
             {"detail": "Prescription not found."},
             status=status.HTTP_404_NOT_FOUND
         )
-
-# Medications API
-
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def get_medications_by_date(request):
-#     user = request.user.id
-#     prescriptions = Prescription.objects.filter(user=user)
-#
-#     if not prescriptions.exists():
-#         return Response({'detail': 'No medications found.'}, status=status.HTTP_204_NO_CONTENT)
-#
-#     medication_details = MedicationDetail.objects.filter(prescription__in=prescriptions)
-#
-#     if not medication_details.exists():
-#         return Response({'detail': 'No medications found.'}, status=status.HTTP_204_NO_CONTENT)
-#
-#     grouped_medications = defaultdict(list)
-#     for medication in medication_details:
-#         grouped_medications[medication.intake_date].append(medication)
-#
-#     response_data = [
-#         {'date': intake_date, 'medications': MedicationDetailSerializer(medications, many=True).data}
-#         for intake_date, medications in grouped_medications.items()
-#     ]
-#
-#     return Response(response_data, status=status.HTTP_200_OK)
-#
-#
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def add_medication(request):
-#     serializer = MedicationSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

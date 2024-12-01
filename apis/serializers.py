@@ -39,16 +39,6 @@ class PrescriptionSerializer(serializers.ModelSerializer):
         prescription = Prescription.objects.create(**validated_data)
         prescription.create_medical_details(medication_details_data)
 
-        # duration = validated_data.get('duration', 0)
-        # for detail_data in medication_details_data:
-        #     for intake_day in range(duration):
-        #         intake_date = validated_data['start_date'] + timedelta(days=intake_day)
-        #         MedicationDetail.objects.create(
-        #             prescription=prescription,
-        #             intake_date=intake_date,
-        #             **detail_data
-        #         )
-
         return prescription
 
     def update(self, instance, validated_data):
