@@ -170,4 +170,4 @@ Authorization: Token 29675fd5e1bbff8c9a444683757fce0377736505
     }
 ]
 ```
-Response is grouped by `intake_date` and logged-in `user_id`
+Response is grouped by `intake_date` and logged-in `user_id`.
