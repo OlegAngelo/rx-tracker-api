@@ -9,7 +9,7 @@ class MedicationDetailSerializer(serializers.ModelSerializer):
             'medication_name',
             'dosage_measurement',
             'frequency',
-            'instructions'
+            'instructions',
             'intake_time',
             'intake_date',
             'is_completed'
@@ -37,9 +37,17 @@ class PrescriptionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         medication_details_data = validated_data.pop('medication_details', [])
         prescription = Prescription.objects.create(**validated_data)
+        prescription.create_medical_details(medication_details_data)
 
-        for detail_data in medication_details_data:
-            MedicationDetail.objects.create(prescription=prescription, **detail_data)
+        # duration = validated_data.get('duration', 0)
+        # for detail_data in medication_details_data:
+        #     for intake_day in range(duration):
+        #         intake_date = validated_data['start_date'] + timedelta(days=intake_day)
+        #         MedicationDetail.objects.create(
+        #             prescription=prescription,
+        #             intake_date=intake_date,
+        #             **detail_data
+        #         )
 
         return prescription
 

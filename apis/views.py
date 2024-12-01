@@ -40,7 +40,6 @@ def get_prescriptions(request):
                     serialized_detail = {
                         # "id": detail.id,
                         "dosage_measurement": detail.dosage_measurement,
-                        "medication": detail.medication.id,
                         "prescription": detail.prescription.id,
                         "instructions": detail.instructions,
                     }
@@ -65,48 +64,20 @@ def add_prescription(request):
 
     try:
         with transaction.atomic():
+            # Check if medication details exist in the request
+            medication_details_data = request_data.get('medication_details')
+            if not medication_details_data:
+                return Response({"error": "No medication details provided."}, status=status.HTTP_400_BAD_REQUEST)
+
             # Create the serializer instance and validate the prescription data
             prescription_serializer = PrescriptionSerializer(data=request_data)
             if not prescription_serializer.is_valid():
                 return Response(prescription_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
             # Save the main prescription instance
-            prescription = prescription_serializer.save()
-
-            # Check if medication details exist in the request
-            medication_details_data = request_data.get('medication_details')
-            if not medication_details_data:
-                return Response({"error": "No medication details provided."}, status=status.HTTP_400_BAD_REQUEST)
-
-            # Iterate over the medication details to check and create medications if needed
-            for detail_data in medication_details_data:
-                medication_name = detail_data.get('medication_name')
-                if not medication_name:
-                    return Response({"error": "Each medication detail must include a medication name."}, status=status.HTTP_400_BAD_REQUEST)
-
-                # Validate the medication data using the MedicationSerializer
-                # medication_serializer = MedicationSerializer(data={'id': medication_id})
-                # if not medication_serializer.is_valid():
-                #     return Response(medication_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-                # Check if the medication exists; if not, create it
-                # medication, created = Medication.objects.get_or_create(id=medication_id)
-                # if created:
-                #     print(f"Medication with ID {medication_id} was created.")
-                # else:
-                #     print(f"Medication with ID {medication_id} already exists.")
-
-                # Validate and create a new MedicationDetail instance
-                # medication_detail_serializer = MedicationDetailSerializer(data=detail_data)
-                # if not medication_detail_serializer.is_valid():
-                #     return Response(medication_detail_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-                # Create a new MedicationDetail associated with the prescription and medication
-                # medication_detail_serializer.save(prescription=prescription, medication=medication)
-                # medication_detail_serializer.save(prescription=prescription)
+            prescription_serializer.save()
 
             return Response(prescription_serializer.data, status=status.HTTP_201_CREATED)
-
     except IntegrityError as e:
         # Handle specific database integrity errors
         transaction.rollback()  # Explicit rollback for clarity, though transaction.atomic() does this automatically
