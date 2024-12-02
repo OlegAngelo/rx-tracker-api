@@ -20,7 +20,7 @@ class Prescription(models.Model):
     # Automatically compute the end date if start_date and duration are provided
     def save(self, *args, **kwargs):
         if self.start_date and self.duration:
-            self.end_date = self.start_date + timedelta(days=self.duration)
+            self.end_date = self.start_date + timedelta(days=self.duration - 1)
         super().save(*args, **kwargs)
 
     # create multiple medical details based on number of duration

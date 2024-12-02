@@ -11,6 +11,7 @@ This is the documentation for the RX Tracker application (*which is also known a
   - [Get API Token](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#generate-api-token)
   - [Add Prescription](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
   - [Get Prescriptions](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
+- [Status Codes](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#response-codes)
 
 ## Features
 - Admin page
@@ -171,3 +172,21 @@ Authorization: Token 29675fd5e1bbff8c9a444683757fce0377736505
 ]
 ```
 Response is grouped by `intake_date` and logged-in `user_id`.
+
+## Response Codes
+
+---
+
+This document provides a quick reference for commonly encountered HTTP status codes, their meanings, and descriptions.
+
+| **Code** | **Meaning**         | **Description**            | Supported   |
+|----------|---------------------|----------------------------|-------------|
+| 200      | OK                  | The request was successful.                                                    | **Yes**     |
+| 201      | Created             | The request has been fulfilled, and a new resource is created.                 | **Yes**     |
+| 204      | No content          | The server has completed the request but does not need to return an entity-body.| **Yes**     |
+| 400      | Bad request         | Your request is invalid.                                                       | **Yes**     |
+| 401      | Unauthorized        | Your `Access Token` is expired. Please [refresh your token](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#generate-api-token) using your `Client Credentials`. | **Yes**     |
+| 403      | Forbidden           | Your account is inactive, or you do not have permission to access this resource.| **Yes**     |
+| 404      | Not found           | Requested resource not found.                                                  | **Yes**     |
+| 429      | Too many requests   | You are performing too many requests. Please see the [rate limits](#).         | **Not yet** |
+| 500      | Internal server error | We had a problem with our server. Try again later.                             | **Yes**     |
