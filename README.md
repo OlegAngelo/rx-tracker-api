@@ -1,1 +1,197 @@
-# rx-tracker-api with venv used with pycharm
+# [RX Tracker API](https://github.com/mcdylanb/medAlert)
+
+This is the documentation for the RX Tracker application (*which is also known as Medical Alert application*), which is a simple and easy-to-use API for managing prescription and medication details data. The API has a number of endpoints for creating, retrieving, and updating prescription and medication details data.
+
+**Note:** Project is ongoing and is not open-source, thus, project is currently in private.
+
+## Table of Contents
+- [Features](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#features)
+- [Technology](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#technology)
+- [Endpoints](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#endpoints)
+  - [Get API Token](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#generate-api-token)
+  - [Add Prescription](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
+  - [Get Prescriptions](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
+- [Response Codes](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#response-codes)
+
+## Features
+- Admin page
+- Create admin
+- Create user
+- Generate API token
+- Get Prescriptions with medical details
+- Add Prescriptions with medical details
+
+## Technology
+This API uses a number of open source projects to work properly:
+
+- [Django](https://www.djangoproject.com/) for the backend framework
+- [Django Rest Framework](https://www.django-rest-framework.org/) for authentication & authorization
+- [SQLite](https://www.sqlitetutorial.net/) for the database
+
+## Endpoints
+
+### Generate API token
+
+---
+```
+POST /api/token-auth
+```
+
+**Request:**
+```json
+{
+  "username": "user1",
+  "password": "W3lc0M3!@#$"
+}
+```
+
+1. Create a user under admin page.
+2. Generate token in admin page, or you can `run curl` command in terminal to get api key using the created user's credentials.
+```
+curl -X POST http://127.0.0.1:8000/api/token-auth/ -H "Content-Type: application/json" -d '{"username": "user1", "password": "W3lc0M3!@#$"}'
+```
+
+**Response:**
+```
+{ "token": "29675fd5e1bbff8c9a444683757fce0377736505" }
+```
+
+<br />
+
+
+### Add Prescriptions with Medical Details
+
+---
+
+```
+POST /api/prescriptions/add
+```
+**Request:**
+```
+Authorization: Token 29675fd5e1bbff8c9a444683757fce0377736505
+```
+```json
+{
+    "user": 2,
+    "start_date": "2024-12-05",
+    "duration": 2,
+    "is_completed": false,
+    "medication_details": [
+        {
+            "medication_name": "Biogesic",
+            "dosage_measurement": "500mg",
+            "frequency": 3,
+            "intake_time": "08:00",
+            "instructions": "Take with meals."
+        }
+    ]
+}
+```
+
+**Response:**
+`201 Created`
+
+```json
+{
+    "id": 3,
+    "user": 2,
+    "start_date": "2024-12-05",
+    "duration": 2,
+    "end_date": "2024-12-07",
+    "completed_date": null,
+    "is_completed": false,
+    "medication_details": [
+        {
+            "id": 9,
+            "medication_name": "Biogesic",
+            "dosage_measurement": "500mg",
+            "frequency": 3,
+            "instructions": "Take with meals.",
+            "intake_time": "08:00:00",
+            "intake_date": "2024-12-05",
+            "is_completed": false
+        },
+        {
+            "id": 9,
+            "medication_name": "Biogesic",
+            "dosage_measurement": "500mg",
+            "frequency": 3,
+            "instructions": "Take with meals.",
+            "intake_time": "08:00:00",
+            "intake_date": "2024-12-06",
+            "is_completed": false
+        }
+    ]
+}
+```
+Response is grouped by `prescription`.
+
+<br />
+
+### Get Prescriptions with Medical Details
+
+---
+```
+GET /api/prescriptions
+```
+
+**Request:**
+```
+Authorization: Token 29675fd5e1bbff8c9a444683757fce0377736505
+```
+
+**Response:**
+`200 OK`
+
+```json
+[
+    {
+        "intake_date": "2024-12-05",
+        "medication_details": [
+            {
+                "medication_name": "Biogesic",
+                "frequency": 3,
+                "dosage_measurement": "500mg",
+                "prescription": 3,
+                "instructions": "Take with meals."
+            }
+        ]
+    },
+    {
+        "intake_date": "2024-12-06",
+        "medication_details": [
+            {
+                "medication_name": "Biogesic",
+                "frequency": 3,
+                "dosage_measurement": "500mg",
+                "prescription": 3,
+                "instructions": "Take with meals."
+            }
+        ]
+    }
+]
+```
+Response is grouped by `intake_date` and logged-in `user_id`.
+
+## Response Codes
+
+This document provides a quick reference for commonly encountered HTTP status codes, their meanings, and descriptions.
+
+| **Code** | **Meaning**         | **Description**            | Supported   |
+|----------|---------------------|----------------------------|-------------|
+| 200      | OK                  | The request was successful.                                                    | **Yes**     |
+| 201      | Created             | The request has been fulfilled, and a new resource is created.                 | **Yes**     |
+| 204      | No content          | The server has completed the request but does not need to return an entity-body.| **Yes**     |
+| 400      | Bad request         | Your request is invalid.                                                       | **Yes**     |
+| 401      | Unauthorized        | Your `Access Token` is expired. Please [refresh your token](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#generate-api-token) using your `Client Credentials`. | **Yes**     |
+| 403      | Forbidden           | Your account is inactive, or you do not have permission to access this resource.| **Yes**     |
+| 404      | Not found           | Requested resource not found.                                                  | **Yes**     |
+| 429      | Too many requests   | You are performing too many requests. Please see the [rate limits](#).         | **Not yet** |
+| 500      | Internal server error | We had a problem with our server. Try again later.                             | **Yes**     |
+
+## To Dos
+- [ ] Deploy MVP functions.
+- [ ] Medication is completed function.
+- [ ] Delete medication function.
+- [ ] How to run locally in READMe.md
+- [ ] Update/Edit medication details.
