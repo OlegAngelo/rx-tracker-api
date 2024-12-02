@@ -188,3 +188,10 @@ This document provides a quick reference for commonly encountered HTTP status co
 | 404      | Not found           | Requested resource not found.                                                  | **Yes**     |
 | 429      | Too many requests   | You are performing too many requests. Please see the [rate limits](#).         | **Not yet** |
 | 500      | Internal server error | We had a problem with our server. Try again later.                             | **Yes**     |
+
+## To Dos
+- [ ] Deploy MVP functions.
+- [ ] Medication is completed function.
+- [ ] Delete medication function.
+- [ ] How to run locally in READMe.md
+- [ ] Update/Edit medication details.
