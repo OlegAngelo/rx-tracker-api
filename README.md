@@ -11,7 +11,7 @@ This is the documentation for the RX Tracker application (*which is also known a
   - [Get API Token](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#generate-api-token)
   - [Add Prescription](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
   - [Get Prescriptions](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#add-prescriptions-with-medical-details)
-- [Status Codes](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#response-codes)
+- [Response Codes](https://github.com/OlegAngelo/rx-tracker-api/tree/update_readme_get_started?tab=readme-ov-file#response-codes)
 
 ## Features
 - Admin page
@@ -53,7 +53,7 @@ curl -X POST http://127.0.0.1:8000/api/token-auth/ -H "Content-Type: application
 
 **Response:**
 ```
-{ "token": "4b62e76d5d614f55a4558a1a6a18445b2d69f60e" }
+{ "token": "29675fd5e1bbff8c9a444683757fce0377736505" }
 ```
 
 <br />
@@ -174,8 +174,6 @@ Authorization: Token 29675fd5e1bbff8c9a444683757fce0377736505
 Response is grouped by `intake_date` and logged-in `user_id`.
 
 ## Response Codes
-
----
 
 This document provides a quick reference for commonly encountered HTTP status codes, their meanings, and descriptions.
 
